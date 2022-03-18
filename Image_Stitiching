@@ -1,0 +1,39 @@
+import cv2
+import os
+
+mainFolder = 'Images'
+myfolders = os.listdir(mainFolder)
+print(myfolders)
+
+
+for folder in myfolders:
+    path = mainFolder + '/'+folder
+    images = []
+    myList = os.listdir(path)
+    print(f'No of images {len(myList)}')
+
+    for imgN in myList:
+        curImg =  cv2.imread(f'{path}/{imgN}')
+        curImg = cv2.resize(curImg,(0,0), None,0.2,0.2)
+        images.append(curImg)
+
+
+    stitcher = cv2.Stitcher.create()
+    (status,result)  = stitcher.stitch(images)
+    if (status == cv2.STITCHER_OK):
+        print('Panaroma Generated')
+        cv2.imshow(folder,result)
+
+
+
+        #cv2.Canny(result,(100,200))
+
+    else:
+        print("no")
+#cv2.imwrite('')
+a=cv2.imwrite('af.jpeg',curImg)
+
+img2 = cv2.GaussianBlur(a,(7,7),0)
+#final = cv2.Canny(img2,100,200)
+cv2.imshow('final',img2)
+cv2.waitKey(0)
