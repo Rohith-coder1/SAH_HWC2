@@ -1,0 +1,13 @@
+import cv2
+import numpy
+import matplotlib .pyplot as plt
+
+img = cv2.imread("af.jpeg",cv2.IMREAD_UNCHANGED)
+img2 = cv2.GaussianBlur(img,(7,7),0)
+
+final = cv2.Canny(img2,200,200)
+#final2 =cv2.Canny(final,100,100)
+
+cv2.imshow('final',final)
+cv2.waitKey(90000)
+cv2.destroyAllWindows()
